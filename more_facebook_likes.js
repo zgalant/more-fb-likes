@@ -14,6 +14,15 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 		"Richard Evans","Linda Ellis","Lisa Woods","William Johnson","Jennifer Martinez","Richard Fisher","William Richardson","Elizabeth Sullivan","Mary Griffin","John Barnes"
 	];
 
+	var first_names = [];
+	var last_names = [];
+	for(var i = 0; i < names.length; i++){
+		var name = names[i];
+		var split_name = name.split(" ");
+		first_names.push(split_name[0]);
+		last_names.push(split_name[1]);
+	}
+
 	$(".UFILikeSentence").each(function(){
 		var cur = $(this).find("a[rel='dialog']").html();
 		if (cur != null){
@@ -25,15 +34,18 @@ a){var b=F.exec(a);b&&(b[1]=(b[1]||"").toLowerCase(),b[3]=b[3]&&new RegExp("(?:^
 
 	});
 
+	function randomNumber(low, high){
+		var r = Math.random();
+	    var rand = low + Math.floor(r * (high - low + 1));
+	    return rand;
+	}
+
 	var howMany = 0;
 	function addNew(){
-		var r = Math.random();
-	    var low = 0;
-	    var high = names.length - 1;
-	    var rand = low + Math.floor(r * (high - low + 1));
+		var first = first_names[randomNumber(0, first_names.length - 1)];
+		var last = last_names[randomNumber(0, last_names.length - 1)];
+		var name = first + " " + last;
 
-		
-		var name = names[rand];
 		var newLike = '<li class="fbProfileBrowserListItem newLike"><div class="clearfix"><a class="-cx-PRIVATE-uiImageBlock__image -cx-PRIVATE-uiImageBlock__largeImage lfloat" href="https://www.facebook.com/lek?fref=pb" tabindex="0" aria-hidden="true" data-hovercard="/ajax/hovercard/user.php?id=1433880147" aria-owns="js_4" aria-controls="js_4" aria-haspopup="true" id="js_6"><img class="-cx-PRIVATE-uiSquareImage__root -cx-PRIVATE-uiSquareImage__large img" src="http://lorempixel.com/50/50/people/" alt=""></a><div class="clearfix -cx-PRIVATE-uiImageBlock__content -cx-PRIVATE-uiFlexibleBlock__flexibleContent"><div class="-cx-PRIVATE-uiInlineBlock__root rfloat"><div class="-cx-PRIVATE-uiInlineBlock__root -cx-PRIVATE-uiInlineBlock__middle" style="height:50px"></div><div class="-cx-PRIVATE-uiInlineBlock__root -cx-PRIVATE-uiInlineBlock__middle"><div class="mhs FriendButton" id="u_e_5"><label class="FriendRequestAdd addButton hidden_elem uiButton" for="u_e_6"><i class="mrs img sp_5b07zf sx_935e47"></i><input value="Add Friend" type="button" id="u_e_6"></label><a class="FriendRequestOutgoing enableFriendListFlyout outgoingButton enableFriendListFlyout hidden_elem uiButton" href="#" role="button" data-profileid="1433880147" data-flloc="profile_browser" data-cansuggestfriends="true"><i class="mrs img sp_5b07zf sx_935e47"></i><span class="uiButtonText">Friend Request Sent</span></a><a class="FriendRequestFriends friendButton enableFriendListFlyout uiButton" href="#" role="button" data-profileid="1433880147" data-cansuggestfriends="true" data-flloc="profile_browser" aria-haspopup="1" data-unref="bd_profile_browser" id="u_e_7"><i class="mrs img sp_4ude9q sx_f9403c customimg"><u>Friend</u></i><span class="uiButtonText">Friends</span></a></div></div></div><div class="uiProfileBlockContent"><div class="-cx-PRIVATE-uiInlineBlock__root"><div class="-cx-PRIVATE-uiInlineBlock__root -cx-PRIVATE-uiInlineBlock__middle" style="height:50px"></div><div class="-cx-PRIVATE-uiInlineBlock__root -cx-PRIVATE-uiInlineBlock__middle"><div class="fsl fwb fcb"><a href="https://www.facebook.com/lek?fref=pb" data-gt="{&quot;engagement&quot;:{&quot;eng_type&quot;:&quot;1&quot;,&quot;eng_src&quot;:&quot;2&quot;,&quot;eng_tid&quot;:&quot;1433880147&quot;,&quot;eng_data&quot;:[]}}" data-hovercard="/ajax/hovercard/user.php?id=1433880147" aria-owns="js_4" aria-controls="js_4" aria-haspopup="true" id="js_5">' + name + '</a></div><ul class="uiList -cx-PRIVATE-uiList__vert"><li><span class="-cx-PUBLIC-fbUserBio__text fsm fwn"></span></li></ul></div></div></div></div></div></li>'
 		$(".fbProfileBrowserListItem").parent().append(newLike);
 		if(howMany++ < 300){
